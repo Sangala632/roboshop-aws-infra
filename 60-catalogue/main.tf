@@ -33,8 +33,8 @@ resource "terraform_data" "catalogue" {
     aws_instance.catalogue.id
   ]
   provisioner "file" {
-    source      = "bootstrap.sh"
-    destination = "/tmp/bootstrap.sh"
+    source      = "catalogue.sh"
+    destination = "/tmp/catalogue.sh"
   }
 
   connection {
@@ -46,8 +46,8 @@ resource "terraform_data" "catalogue" {
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /tmp/bootstrap.sh",
-      "sudo sh /tmp/bootstrap.sh catalogue ${var.environment}"
+      "chmod +x /tmp/catalogue.sh",
+      "sudo sh /tmp/catalogue.sh catalogue ${var.environment}"
     ]
   }
 }
