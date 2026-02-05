@@ -51,3 +51,33 @@ resource "terraform_data" "catalogue" {
     ]
   }
 }
+
+resource "aws_ec2_instance_state" "catalogue" {
+  instance_id = aws_instance.catalogue.id
+  state       = "stopped"
+  depends_on = [terraform_data.catalogue]
+}
+
+resource "aws_ami_from_instance" "catalogue" {
+  name               = "${var.project}-${var.environment}-catalogue"
+  source_instance_id = aws_instance.catalogue.id
+  depends_on = [aws_ec2_instance_state.catalogue]
+  tags = merge(
+    local.common_tags,
+    {
+      Name = "${var.project}-${var.environment}-catalogue"
+    }
+  )
+}
+
+
+resource "terraform_data" "catalogue_delete" {
+  triggers_replace = [
+    aws_instance.catalogue.id
+  ]
+  
+  provisioner "local-exec" {
+    command ="aws ec2 terminate-instances --instance-ids ${aws_instance.catalogue.id}"
+  }
+  depends_on = [aws_ami_from_instance.catalogue]
+}
