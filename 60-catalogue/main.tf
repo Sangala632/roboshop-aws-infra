@@ -2,7 +2,7 @@ resource "aws_lb_target_group" "catalouge" {
   name     = "${var.project}-${var.environment}-catalouge"
   port     = 8080
   protocol = "HTTP"
-  vpc_id   = local.vpc_id.id
+  vpc_id   = local.vpc_id
   health_check {
     healthy_threshold   = 2
     interval            = 5

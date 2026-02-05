@@ -10,8 +10,8 @@ data "aws_ssm_parameter" "backend_alb_sg_id" {
   name = "/${var.project}/${var.environment}/backend_alb_sg_id"
 }
 
-data "aws_ssm_parameter" "catalogue_sg_id" {
-  name = "/${var.project}/${var.environment}/catalogue_sg_id"
+data "aws_ssm_parameter" "catalogue-sg-id" {
+  name = "/${var.project}/${var.environment}/catalogue-sg-id"
 }
 
 data "aws_ami" "Roboshop-project" {
