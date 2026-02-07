@@ -14,6 +14,10 @@ data "aws_ssm_parameter" "catalogue-sg-id" {
   name = "/${var.project}/${var.environment}/catalogue-sg-id"
 }
 
+data "aws_ssm_parameter" "backend_alb_listener_arn" {
+  name = "/${var.project}/${var.environment}/backend_alb_listener_arn"
+}
+
 data "aws_ami" "Roboshop-project" {
   owners      = ["973714476881"]
   most_recent = true
