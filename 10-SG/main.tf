@@ -152,7 +152,7 @@ resource "aws_security_group_rule" "mongodb_vpn_ssh" {
   to_port           = var.mongodb_ports_vpn[count.index]
   protocol          = "tcp"
   source_security_group_id = module.vpn.sg_id
-  security_group_id = module.mongo_db.sg_id
+  security_group_id = module.mongodb.sg_id
 }
 
 resource "aws_security_group_rule" "mongodb_bastion" {

@@ -2,7 +2,7 @@
 resource "aws_ssm_parameter" "mongodb_sg_id" {
   name  = "/${var.project}/${var.environment}/mongodb-sg-id"
   type  = "String"
-  value = module.mongo_db.sg_id
+  value = module.mongodb.sg_id
 }
 
 resource "aws_ssm_parameter" "redis_sg_id" {
@@ -64,12 +64,6 @@ resource "aws_ssm_parameter" "backend_alb_sg_id" {
   name  = "/${var.project}/${var.environment}/backend_alb_sg_id"
   type  = "String"
   value = module.backend_alb.sg_id
-}
-
-resource "aws_ssm_parameter" "frontend_sg_id" {
-  name  = "/${var.project}/${var.environment}/frontend-sg-id"
-  type  = "String"
-  value = module.frontend.sg_id
 }
 
 resource "aws_ssm_parameter" "frontend_alb_sg_id" {
