@@ -1,6 +1,6 @@
-data "aws_ami" "open_vpn" {
-  owners      = ["679593333241"]
-  most_recent = true
+data "aws_ami" "openvpn" {
+  owners           = ["679593333241"]
+  most_recent      = true
 
   filter {
     name   = "name"
@@ -16,18 +16,14 @@ data "aws_ami" "open_vpn" {
     name   = "virtualization-type"
     values = ["hvm"]
   }
-  
-  filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
 }
 
 data "aws_ssm_parameter" "vpn_sg_id" {
-  name = "/${var.project}/${var.environment}/vpn-sg-id"
+  name = "/${var.project}/${var.environment}/vpn_sg_id"
 }
 
 data "aws_ssm_parameter" "public_subnet_ids" {
   name = "/${var.project}/${var.environment}/public_subnet_ids"
 }
+
 

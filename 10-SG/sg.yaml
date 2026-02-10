@@ -50,6 +50,7 @@
     purpose: catalogue should accept traffic on 22 from vpn
   - name: catalogue_backend_alb
     purpose: catalogue should accept traffic on 8080 from backend_al
+  
   user:
   - name: catalogue_vpn
     purpose: catalogue should accept traffic on 22 from vpn

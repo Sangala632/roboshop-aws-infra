@@ -1,9 +1,10 @@
-data "aws_ami" "Roboshop-project" {
-  owners      = ["973714476881"]
-  most_recent = true
+data "aws_ami" "roboshop_project" {
+  owners           = ["973714476881"]
+  most_recent      = true
+
   filter {
     name   = "name"
-    values = ["Redhat-9-DevOps-Practice*"]
+    values = ["RHEL-9-DevOps-Practice"]
   }
 
   filter {
@@ -15,30 +16,24 @@ data "aws_ami" "Roboshop-project" {
     name   = "virtualization-type"
     values = ["hvm"]
   }
-
-  filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
 }
 
 data "aws_ssm_parameter" "mongodb_sg_id" {
-  name = "/${var.project}/${var.environment}/mongodb-sg-id"
+  name = "/${var.project}/${var.environment}/mongodb_sg_id"
 }
 
 data "aws_ssm_parameter" "redis_sg_id" {
-  name = "/${var.project}/${var.environment}/redis-sg-id"
+  name = "/${var.project}/${var.environment}/redis_sg_id"
 }
 
 data "aws_ssm_parameter" "mysql_sg_id" {
-  name = "/${var.project}/${var.environment}/mysql-sg-id"
+  name = "/${var.project}/${var.environment}/mysql_sg_id"
 }
 
 data "aws_ssm_parameter" "rabbitmq_sg_id" {
-  name = "/${var.project}/${var.environment}/rabbitmq-sg-id"
+  name = "/${var.project}/${var.environment}/rabbitmq_sg_id"
 }
 
 data "aws_ssm_parameter" "database_subnet_ids" {
   name = "/${var.project}/${var.environment}/database_subnet_ids"
 }
-
