@@ -14,25 +14,21 @@ data "aws_ssm_parameter" "backend_alb_listener_arn" {
   name = "/${var.project}/${var.environment}/backend_alb_listener_arn"
 }
 
-data "aws_ami" "roboshop_project" {
-  owners           = ["973714476881"]
-  most_recent      = true
+data "aws_ami" "roboshop" {
+  owners      = ["973714476881"]
+  most_recent = true
 
   filter {
     name   = "name"
-    values = ["RHEL-9-DevOps-Practice"]
+    values = ["Redhat-9-DevOps-Practice"]
   }
-
+  
   filter {
     name   = "root-device-type"
     values = ["ebs"]
   }
 
   filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-   filter {
     name   = "virtualization-type"
     values = ["hvm"]
   }

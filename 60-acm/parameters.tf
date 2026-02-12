@@ -1,5 +1,5 @@
-resource "aws_ssm_parameter" "backend_alb_listener_arn" {
-  name  = "/${var.project}/${var.environment}/backend_alb_listener_arn"
+resource "aws_ssm_parameter" "acm_certificate_arn" {
+  name  = "/${var.project}/${var.environment}/acm_certificate_arn"
   type  = "String"
-  value = aws_lb_listener.backend_alb.arn
+  value = aws_acm_certificate.hellodevsecops.arn
 }

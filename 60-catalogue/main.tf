@@ -20,7 +20,7 @@ resource "aws_instance" "catalogue" {
   instance_type = "t3.micro"
   vpc_security_group_ids = [local.catalogue_sg_id]
   subnet_id = local.private_subnet_id
-  iam_instance_profile = "EC2RoleToFetchSSMParams"
+  #iam_instance_profile = "EC2RoleToFetchSSMParams"
   tags = merge(
     local.common_tags,
     {
@@ -61,7 +61,7 @@ resource "aws_ec2_instance_state" "catalogue" {
 }
 
 resource "aws_ami_from_instance" "catalogue" {
-  name               = "${var.project}-${var.environment}-catalogue"
+  name               = "${var.project}-${var.environment}-catalogue-${formatdate("YYYYMMDD-HHmmss", timestamp())}"
   source_instance_id = aws_instance.catalogue.id
   depends_on = [aws_ec2_instance_state.catalogue]
   tags = merge(

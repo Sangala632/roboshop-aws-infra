@@ -1,3 +1,2 @@
-# Roboshop 3 Tier Architecture
-
-![alt text](roboshop.svg)
+Roboshop VM Architecture
+![alt text](roboshop-infra-dev.drawio.svg)
