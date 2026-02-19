@@ -1,11 +1,11 @@
 variable "components" {
     default = {
-        /* catalogue = {
+         catalogue = {
             rule_priority = 10
         }
         user = {
             rule_priority = 20
-        } */
+        } 
         cart = {
             rule_priority = 30
         }
