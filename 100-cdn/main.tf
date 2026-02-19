@@ -41,7 +41,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
   restrictions {
     geo_restriction {
       restriction_type = "whitelist"
-      locations        = ["US", "CA", "GB", "DE"]
+      locations        = ["US", "CA", "GB", "DE","IN"]
     }
   }
 
@@ -59,7 +59,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
 
 resource "aws_route53_record" "frontend_alb" {
   zone_id = var.zone_id
-  name    = "cdn.${var.zone_name}" #dev.hellodevsecops.space
+  name    = "cdn.${var.zone_name}" #cdn.hellodevsecops.space
   type    = "A"
 
   alias {
