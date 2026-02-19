@@ -1,5 +1,5 @@
-resource "aws_ssm_parameter" "acm_certificate_arn" {
-  name  = "/${var.project}/${var.environment}/acm_certificate_arn"
+resource "aws_ssm_parameter" "frontend_alb_certificate_arn" {
+  name  = "/${var.project}/${var.environment}/frontend_alb_certificate_arn"
   type  = "String"
   value = aws_acm_certificate.hellodevsecops.arn
 }

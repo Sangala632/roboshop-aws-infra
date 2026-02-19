@@ -1,11 +1,11 @@
 resource "aws_acm_certificate" "hellodevsecops" {
-  domain_name       = "*.${var.zone_name}"
+  domain_name       = "*.${var.domain_name}"
   validation_method = "DNS"
 
   tags = merge(
     local.common_tags,
     {
-      Name = "${var.project}-${var.environment}"
+      Name = local.common_name_suffix #"${var.project}-${var.environment}"
     }
   )
 
@@ -26,14 +26,12 @@ resource "aws_route53_record" "hellodevsecops" {
   allow_overwrite = true
   name            = each.value.name
   records         = [each.value.record]
-  ttl             = 60
+  ttl             = 1
   type            = each.value.type
   zone_id         = var.zone_id
 }
 
 resource "aws_acm_certificate_validation" "hellodevsecops" {
   certificate_arn         = aws_acm_certificate.hellodevsecops.arn
-  validation_record_fqdns = [
-    for record in aws_route53_record.hellodevsecops : record.fqdn
-  ]
+  validation_record_fqdns = [ for record in aws_route53_record.hellodevsecops : record.fqdn ]
 }

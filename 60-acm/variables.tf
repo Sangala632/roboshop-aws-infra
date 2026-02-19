@@ -13,7 +13,7 @@ variable "zone_id" {
     default ="Z0168679G0Y1V181BPMR"
 }
 
-variable "zone_name" {
+variable "domain_name" {
     type = string
     default ="hellodevsecops.space"
 }
