@@ -1,27 +1,26 @@
 resource "aws_cloudfront_distribution" "roboshop" {
-    origin {
-    # roboshop-dev.hellodevsecops.space
-    domain_name = "${var.project}-${var.environment}.${var.domain_name}"
-    origin_id   = "${var.project}-${var.environment}.${var.domain_name}"
-    custom_origin_config {
-      http_port              = 80
-      https_port             = 443
-      origin_protocol_policy = "https-only"
-      origin_ssl_protocols   = ["TLSv1.2"]
+  origin {
+    domain_name = "cdn.${var.domain_name}"
+    custom_origin_config  {
+        http_port              = 80 // Required to be set but not used
+        https_port             = 443
+        origin_protocol_policy = "https-only"
+        origin_ssl_protocols   = ["TLSv1.2"]
     }
+    origin_id                = "cdn.${var.domain_name}"
   }
 
   enabled             = true
 
-  aliases = ["${var.environment}.${var.domain_name}"]
+  aliases = ["cdn.hellodevsecops.space"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "${var.project}-${var.environment}.${var.domain_name}"
+    target_origin_id = "cdn.${var.domain_name}"
 
     viewer_protocol_policy = "https-only"
-    cache_policy_id  = local.cachingDisabled
+    cache_policy_id  = data.aws_cloudfront_cache_policy.cachingDisabled.id
   }
 
   # Cache behavior with precedence 0
@@ -32,18 +31,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
     target_origin_id = "cdn.${var.domain_name}"
 
     viewer_protocol_policy = "https-only"
-    cache_policy_id  = local.cachingOptimised
-  }
-
-   # Cache behavior with precedence 1
-  ordered_cache_behavior {
-    path_pattern     = "/images/*"
-    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
-    cached_methods   = ["GET", "HEAD", "OPTIONS"]
-    target_origin_id = "${var.project}-${var.environment}.${var.domain_name}"
-
-    viewer_protocol_policy = "https-only"
-    cache_policy_id        = local.cachingOptimised
+    cache_policy_id  = data.aws_cloudfront_cache_policy.cachingOptimised.id
   }
 
 
@@ -52,7 +40,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
   restrictions {
     geo_restriction {
       restriction_type = "whitelist"
-      locations        = ["US", "CA", "GB", "DE"]
+      locations        = ["US", "CA", "GB", "DE" ,"IN"]
     }
   }
 
@@ -63,17 +51,15 @@ resource "aws_cloudfront_distribution" "roboshop" {
   )
 
   viewer_certificate {
-    acm_certificate_arn = local.cdn_certificate_arn
+    acm_certificate_arn = local.frontend_alb_certificate_arn
     ssl_support_method = "sni-only"
   }
 }
 
-resource "aws_route53_record" "cdn" {
+resource "aws_route53_record" "frontend_alb" {
   zone_id = var.zone_id
-  name    = "${var.environment}.${var.domain_name}"
+  name    = "cdn.${var.domain_name}" #dev.hellodevsecops.space
   type    = "A"
-  allow_overwrite = true
-
 
   alias {
     name                   = aws_cloudfront_distribution.roboshop.domain_name
@@ -81,4 +67,3 @@ resource "aws_route53_record" "cdn" {
     evaluate_target_health = true
   }
 }
-
