@@ -1,6 +1,6 @@
 resource "aws_cloudfront_distribution" "roboshop" {
   origin {
-    domain_name = data.aws_ssm_parameter.frontend_alb_dns.value
+    domain_name = data.aws_ssm_parameter.frontend_alb_certificate_arn.value
     custom_origin_config  {
         http_port              = 80 // Required to be set but not used
         https_port             = 443
