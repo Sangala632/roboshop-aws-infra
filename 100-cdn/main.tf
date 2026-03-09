@@ -1,23 +1,23 @@
 resource "aws_cloudfront_distribution" "roboshop" {
   origin {
-    domain_name = "cdn.${var.domain_name}"
+    domain_name = data.aws_ssm_parameter.frontend_alb_dns.value
     custom_origin_config  {
         http_port              = 80 // Required to be set but not used
         https_port             = 443
         origin_protocol_policy = "https-only"
         origin_ssl_protocols   = ["TLSv1.2"]
     }
-    origin_id                = "cdn.${var.domain_name}"
+    origin_id                = "frontend-alb"
   }
 
   enabled             = true
 
-  aliases = ["cdn.hellodevsecops.space"]
+  aliases = ["hellodevsecops.space"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "cdn.${var.domain_name}"
+    target_origin_id = "frontend-alb"
 
     viewer_protocol_policy = "https-only"
     cache_policy_id  = data.aws_cloudfront_cache_policy.cachingDisabled.id
@@ -28,7 +28,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
     path_pattern     = "/media/*"
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
-    target_origin_id = "cdn.${var.domain_name}"
+    target_origin_id = "frontend-alb"
 
     viewer_protocol_policy = "https-only"
     cache_policy_id  = data.aws_cloudfront_cache_policy.cachingOptimised.id
@@ -58,7 +58,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
 
 resource "aws_route53_record" "frontend_alb" {
   zone_id = var.zone_id
-  name    = "cdn.${var.domain_name}" #dev.hellodevsecops.space
+  name    = var.domain_name #hellodevsecops.space
   type    = "A"
 
   alias {
