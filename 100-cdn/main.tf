@@ -30,7 +30,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
     cached_methods   = ["GET", "HEAD", "OPTIONS"]
     target_origin_id = "frontend-alb"
 
-    viewer_protocol_policy = "https-only"
+    viewer_protocol_policy = "redirect-to-https"
     cache_policy_id  = data.aws_cloudfront_cache_policy.cachingOptimised.id
   }
 
