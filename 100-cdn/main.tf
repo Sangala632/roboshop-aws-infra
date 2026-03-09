@@ -12,7 +12,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
 
   enabled             = true
 
-  aliases = ["hellodevsecops.space"]
+  aliases = ["roboshop.hellodevsecops.space"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -58,7 +58,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
 
 resource "aws_route53_record" "frontend_alb" {
   zone_id = var.zone_id
-  name    = var.domain_name #hellodevsecops.space
+  name    = "${var.project}.${var.domain_name}"#roboshop.hellodevsecops.space
   type    = "A"
 
   alias {
