@@ -564,8 +564,8 @@ resource "aws_security_group_rule" "frontend_alb_http" {
   from_port         = 80
   to_port           = 80
   protocol          = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
-  security_group_id = module.backend_alb.sg_id
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = module.frontend_alb.sg_id  # ← frontend ALB
 }
 
 resource "aws_security_group_rule" "frontend_alb_https" {
