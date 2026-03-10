@@ -12,7 +12,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
 
   enabled             = true
 
-  aliases = ["cdn.daws84s.site"]
+  aliases = ["cdn.hellodevsecops.space"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -40,7 +40,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
   restrictions {
     geo_restriction {
       restriction_type = "whitelist"
-      locations        = ["US", "CA", "GB", "DE"]
+      locations        = ["US", "CA", "GB", "DE","FR", "IN", "AU"]
     }
   }
 
