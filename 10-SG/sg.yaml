@@ -1,4 +1,4 @@
-#sg roabmap of project infra
+#sg roadmap of project infra
 - name: Roboshop SG and Rules
   security_groups:
   - DB:
@@ -49,10 +49,10 @@
   - name: catalogue_vpn
     purpose: catalogue should accept traffic on 22 from vpn
   - name: catalogue_backend_alb
-    purpose: catalogue should accept traffic on 8080 from backend_al
-  
-  user:
-  - name: catalogue_vpn
-    purpose: catalogue should accept traffic on 22 from vpn
-  - name: catalogue_backend_alb
     purpose: catalogue should accept traffic on 8080 from backend_alb
+
+  user:
+  - name: user_vpn
+    purpose: user should accept traffic on 22 from vpn
+  - name: user_backend_alb
+    purpose: user should accept traffic on 8080 from backend_alb

@@ -11,7 +11,7 @@ resource "aws_cloudfront_distribution" "roboshop" {
   }
 
   enabled = true
-  aliases = ["roboshop.${var.zone_name}"]  
+  aliases = ["roboshops.${var.zone_name}"]  
 
   default_cache_behavior {
     allowed_methods        = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -39,9 +39,11 @@ resource "aws_cloudfront_distribution" "roboshop" {
     }
   }
 
-  tags = merge(local.common_tags, {
+  tags = merge(
+    local.common_tags, {
     Name = "${var.project}-${var.environment}"
-  })
+  }
+  )
 
   viewer_certificate {
     acm_certificate_arn = local.acm_certificate_arn
@@ -51,12 +53,12 @@ resource "aws_cloudfront_distribution" "roboshop" {
 
 resource "aws_route53_record" "frontend_cdn" {
   zone_id = var.zone_id
-  name    = "roboshop.${var.zone_name}"    
+  name    = "roboshops.${var.zone_name}"    
   type    = "A"
 
   alias {
     name                   = aws_cloudfront_distribution.roboshop.domain_name
     zone_id                = aws_cloudfront_distribution.roboshop.hosted_zone_id
-    evaluate_target_health = false         
+    evaluate_target_health = true      
   }
 }

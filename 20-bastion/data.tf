@@ -1,4 +1,4 @@
-data "aws_ami" "Roboshop-project" {
+data "aws_ami" "roboshop_project" {
   owners      = ["973714476881"]
   most_recent = true
   filter {

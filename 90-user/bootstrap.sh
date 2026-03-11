@@ -2,7 +2,6 @@
 
 component=$1
 dnf install ansible -y
-dnf install ansible -y
 dnf install epel-release -y
 
 dnf install python3-pip python3-devel -y
