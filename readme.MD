@@ -1,12 +1,8 @@
-<h1>Roboshop VM Architecture</h1>
-
-![alt text](roboshop-infra-dev.drawio.svg)
-
-
-
 # Roboshop AWS Infrastructure
 
 Terraform-based Infrastructure as Code for deploying the [RoboShop](https://github.com/roboshop-devops) e-commerce microservices application on AWS. The project provisions a full production-grade environment including networking, security, databases, load balancers, auto-scaling compute, SSL/TLS, and a CloudFront CDN.
+
+<h1>Roboshop VM Architecture</h1>
 
 ![Architecture Diagram](roboshop-infra-dev.drawio.svg)
 
